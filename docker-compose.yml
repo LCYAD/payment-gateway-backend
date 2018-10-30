@@ -14,6 +14,13 @@ services:
     volumes:
       - 'redis_data:/bitnami/redis'
 
+  mongodb:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/db
+
 volumes:
   redis_data:
     driver: local

@@ -48,6 +48,7 @@ app.use((err, req, res) => {
     res.render('error');
 });
 
+console.log('Server started at 8080'); // to do replace with logger
 http.listen(config.express.port);
 
 module.exports = app;
