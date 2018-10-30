@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "eslint ./bin/server.js && jest",
+    "test": "eslint ./bin/server.js && jest --coverage",
     "start": "sh start_server.sh"
   },
   "keywords": [],

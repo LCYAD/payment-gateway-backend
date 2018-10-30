@@ -1,11 +1,11 @@
 # node modules
 node_modules
 
-# package-lock.json
-package-lock.json
-
 # VS Code 
 .vscode
 
 # Environment Variable
 .env
+
+# test coverage
+coverage
