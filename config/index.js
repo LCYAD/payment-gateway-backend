@@ -24,7 +24,6 @@ const config = Object.freeze({
     development,
     production
 });
-
 module.exports = (environment) => {
     return config[environment] || config.development;
 };

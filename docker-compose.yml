@@ -3,10 +3,12 @@ version: '2'
 services:
   redis:
     image: 'bitnami/redis:latest'
+    env_file:
+      - ./config/.env
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      - REDIS_DISABLE_COMMANDS=FLUSHALL
     labels:
       kompose.service.type: nodeport
     ports:

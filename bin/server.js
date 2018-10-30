@@ -5,7 +5,7 @@ const cors = require('cors');
 const HTTP = require('http');
 
 // get config
-const config = require('../config');
+const config = require('../config')(process.env.NODE_ENV);
 
 // routes instance
 const routes = require('../routes');
