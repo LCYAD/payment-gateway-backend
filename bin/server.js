@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const uuid = require('uuid');
 const cors = require('cors');
 const HTTP = require('http');
 
@@ -10,7 +9,8 @@ const config = require('../config')(process.env.NODE_ENV);
 // routes instance
 const routes = require('../routes');
 
-// config import
+// import logger
+const ConsoleLogger = require('../lib/shared/loader')('ConsoleLogger');
 
 // declare express app
 const app = express();
@@ -48,7 +48,7 @@ app.use((err, req, res) => {
     res.render('error');
 });
 
-console.log('Server started at 8080'); // to do replace with logger
+ConsoleLogger.log('info', 'Server started at 8080', '');
 http.listen(config.express.port);
 
 module.exports = app;
