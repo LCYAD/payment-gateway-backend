@@ -7,7 +7,7 @@ const HTTP = require('http');
 const config = require('../config')(process.env.NODE_ENV);
 
 // routes instance
-const routes = require('../routes');
+const routes = require('../lib/routes');
 
 // import shared resources
 const { ConsoleLogger, ResponseHandler } = require('../lib/shared/loader');
@@ -17,8 +17,15 @@ const app = express();
 const http = HTTP.Server(app);
 
 // middleware setting
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+    bodyParser.json()(req, res, (err) => {
+        if (err) {
+            ResponseHandler.response(res, 500, 'Please enter a valid JSON');
+            return;
+        }
+        next();
+    });
+});
 app.use(cors());
 
 const allowCrossDomain = (req, res, next) => {

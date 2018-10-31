@@ -3,7 +3,9 @@ module.exports = {
     "rules": {
         "indent": ["error", 4],
         "comma-dangle": ["error", "never"],
-        "camelcase": [2, {"properties": "never"}],
-        "arrow-body-style": ["error", "always"]
+        "camelcase": [0, {"properties": "never"}],
+        "arrow-body-style": ["error", "always"],
+        "no-await-in-loop": [0, "never"],
+        "no-restricted-syntax": ["error", "never"]
     }
 };
