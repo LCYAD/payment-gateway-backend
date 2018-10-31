@@ -9,8 +9,8 @@ const config = require('../config')(process.env.NODE_ENV);
 // routes instance
 const routes = require('../routes');
 
-// import logger
-const ConsoleLogger = require('../lib/shared/loader')('ConsoleLogger');
+// import shared resources
+const { ConsoleLogger, ResponseHandler } = require('../lib/shared/loader');
 
 // declare express app
 const app = express();
@@ -32,20 +32,11 @@ app.use(allowCrossDomain);
 
 // Routing
 app.use('/api/payment', new routes.PaymentRoute().router());
+app.use('/api/getID', new routes.QueryRoute().router());
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handler
-app.use((err, req, res) => {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-    res.status(err.status || 500);
-    res.render('error');
+// Use Response Handler for unknown routes
+app.use((req, res) => {
+    ResponseHandler.response(res, 404, 'Links could not be found');
 });
 
 ConsoleLogger.log('info', 'Server started at 8080', '');

@@ -1,6 +1,8 @@
 const express = require('express');
 const uuid = require('uuid/v4');
 const SpawnTask = require('../../lib/spawn_task/spawn_task');
+const { ConsoleLogger, RedisLogger } = require('../../lib/shared/loader');
+const Validator = require('../../lib/middleware/validator');
 
 class PaymentRoute {
     constructor() {
@@ -9,29 +11,31 @@ class PaymentRoute {
 
     router() {
         const router = express.Router();
-        router.post('/amex/', this.amex.bind(this));
-        router.post('/other/', this.other.bind(this));
+        router.post('/A', Validator.validate, this.gatewayA.bind(this));
+        router.post('/B', Validator.validate, this.gatewayB.bind(this));
         return router;
     }
 
-    async amex(req, res) {
+    async gatewayA(req, res) {
         const id = uuid();
         let response;
         try {
             response = await this.spawn_task_handler.processReq(req.body, id);
         } catch (e) {
-            console.log(e);
+            ConsoleLogger.log('error', 'Error at Spawn Task Process', e);
+            RedisLogger.log('error', 'Error at Spawn Task Process', e);
         }
         res.json(response);
     }
 
-    async other(req, res) {
+    async gatewayB(req, res) {
         const id = uuid();
         let response;
         try {
             response = await this.spawn_task_handler.processReq(req.body, id);
         } catch (e) {
-            console.log(e);
+            ConsoleLogger.log('error', 'Error at Spawn Task Process', e);
+            RedisLogger.log('error', 'Error at Spawn Task Process', e);
         }
         res.json(response);
     }

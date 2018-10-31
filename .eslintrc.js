@@ -3,7 +3,7 @@ module.exports = {
     "rules": {
         "indent": ["error", 4],
         "comma-dangle": ["error", "never"],
-        "camelcase": ["error", {"properties": "never"}],
+        "camelcase": [2, {"properties": "never"}],
         "arrow-body-style": ["error", "always"]
     }
 };
