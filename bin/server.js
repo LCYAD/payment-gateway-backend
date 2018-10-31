@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const HTTP = require('http');
+const mongoose = require('mongoose');
 
 // get config
 const config = require('../config')(process.env.NODE_ENV);
@@ -11,6 +12,20 @@ const routes = require('../lib/routes');
 
 // import shared resources
 const { ConsoleLogger, ResponseHandler } = require('../lib/shared/loader');
+
+// connect mongoose
+mongoose.connect('mongodb://mongo/transaction', { useNewUrlParser: true })
+    .then(() => {
+        ConsoleLogger.log('info', 'MongoDB connected', '');
+    })
+    .catch((err) => {
+        ConsoleLogger.log('error', 'Error connecting to MongoDB', err);
+    });
+// const db = mongoose.connection;
+// db.on('error', );
+// db.once('open', () => {
+//     );
+// });
 
 // declare express app
 const app = express();
