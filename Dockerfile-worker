@@ -6,8 +6,10 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN npm i -g pm2
+
 COPY . .
 
 EXPOSE 6000
 
-CMD ["node", "./bin/service_worker.js"]
+CMD ["sh", "start_worker.sh"]

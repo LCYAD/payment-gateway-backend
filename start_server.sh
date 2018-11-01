@@ -1,2 +1,2 @@
 # start server
-node ./bin/server.js
+NODE_ENV=production node ./bin/server.js
