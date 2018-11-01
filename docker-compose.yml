@@ -16,10 +16,13 @@ services:
   worker:
     container_name: service_worker_1
     restart: unless-stopped
-    build: .
+    build:
+      context: ./
+      dockerfile: "Dockerfile-worker"
     volumes:
-      - .:/usr/src/app
-    command: node ./lib/service_worker/service_worker.js
+      - .:/usr/src/app-workers
+    ports:
+      - '6000:6000'
     links:
       - mongo
       - redis

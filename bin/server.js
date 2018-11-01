@@ -14,18 +14,13 @@ const routes = require('../lib/routes');
 const { ConsoleLogger, ResponseHandler } = require('../lib/shared/loader');
 
 // connect mongoose
-mongoose.connect('mongodb://mongo/transaction', { useNewUrlParser: true })
+mongoose.connect('mongodb://mongo/payment', { useNewUrlParser: true })
     .then(() => {
         ConsoleLogger.log('info', 'MongoDB connected', '');
     })
     .catch((err) => {
         ConsoleLogger.log('error', 'Error connecting to MongoDB', err);
     });
-// const db = mongoose.connection;
-// db.on('error', );
-// db.once('open', () => {
-//     );
-// });
 
 // declare express app
 const app = express();
